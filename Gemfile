@@ -57,3 +57,13 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara'
 end
+
+group :development do
+  gem 'guard'
+  gem 'rb-fsevent', :require => false, :platforms => :ruby
+  gem 'rb-inotify', :require => false, :platforms => :ruby
+  gem 'wdm',        :require => false, :platforms => [:mswin, :mingw]
+
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
+end
