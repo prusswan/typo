@@ -2,11 +2,12 @@ config/mail.yml
 *.log
 *~
 db/*.sqlite*
-db/schema.rb
+db/db*
+# db/schema.rb
 .*.swp
 .*.swo
 .DS_Store
-.rspec
+# .rspec
 installer/rails_installer.yml
 #/public/files
 #/public/images/theme
