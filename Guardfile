@@ -25,5 +25,17 @@ end
 guard 'cucumber', :change_format => 'pretty', all_on_start: false do
   watch(%r{^features/.+\.feature$})
   watch(%r{^features/support/.+$})          { 'features' }
-  watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
+  watch(%r{^features/step_definitions/(.+)_steps\.rb$}) do |m|
+    step_features = Dir[File.join("**/*#{m[1]}*.feature")]
+    unless step_features.empty?
+      step_features
+    else
+      'features'
+    end
+  end
+
+  watch(%r{^app/models/(?:(?:\w+/)*)(\w+)\.rb$})        { |m| Dir[File.join("**/*#{m[1]}*.feature")] }
+  watch(%r{^app/views/(?:(?:\w+/)*)(\w+)/.*\.erb$})     { |m| Dir[File.join("**/*#{m[1][0..-2]}*.feature")] }
+  watch(%r{^app/controllers/(?:(?:\w+/)*)(\w+)_controller\.rb$}) { |m| Dir[File.join("**/*#{m[1][0..-2]}*.feature")] }
+  watch(%r{^app/helpers/(?:(?:\w+/)*)(\w+)_helper\.rb$})         { |m| Dir[File.join("**/*#{m[1][0..-2]}*.feature")] }
 end
